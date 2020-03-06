@@ -14,6 +14,10 @@ import com.bbd.blog.model.User;
 import com.bbd.blog.repository.DB;
 import com.bbd.blog.security.Credentials;
 import com.bbd.blog.security.MessageHash;
+import com.bbd.blog.ui.LoginPane;
+import com.bbd.blog.ui.StageInstance;
+
+import javafx.scene.Scene;
 
 public class Auth {
 	
@@ -60,7 +64,10 @@ public class Auth {
 	public static User getActiveUser() {
 		return user;
 	}
-
+	public static void logout() {
+		user = null;
+		StageInstance.getInstance().setScene(new Scene(new LoginPane(), 1080,720));
+	}
 	public static boolean register(User user, Role role, Credentials cred) throws UsernameException {
 		String sql1 = String.format("SELECT * FROM CREDENTIALS WHERE username = '%s'",cred.getUsername());
 		try {

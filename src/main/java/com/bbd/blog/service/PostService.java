@@ -2,6 +2,7 @@ package com.bbd.blog.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +46,7 @@ public class PostService {
 			while(rs.next()) {
 				int id = rs.getInt("post_id");
 				Category cat = Category.match(rs.getInt("cat_id"));
-				Date d = rs.getDate("post_datetime");
+				Date d = new Date(rs.getTimestamp("post_datetime").getTime());
 				String title = rs.getString("post_title"), text = rs.getString("post_text");
 				Post p = new Post(id, cat, d, title, text);
 				author.addPost(p);
@@ -58,8 +59,8 @@ public class PostService {
 		return list;
 	}
 	
-	public static List<Post> getAllPosts() throws OperationDeniedException{
-		if(!(Auth.getActiveUser() instanceof Admin)) throw new OperationDeniedException("Type of user not allowed to perform this operation");
+	public static List<Post> getAllPosts(){
+		
 		List<Post> list = new ArrayList<Post>();
 		
 		String sql = "SELECT * FROM POST WHERE post_deleted = 'F'";
@@ -69,7 +70,7 @@ public class PostService {
 			while(rs.next()) {
 				int id = rs.getInt("post_id");
 				Category cat = Category.match(rs.getInt("cat_id"));
-				Date d = rs.getDate("post_datetime");
+				Date d = new Date(rs.getTimestamp("post_datetime").getTime());
 				String title = rs.getString("post_title"), text = rs.getString("post_text");
 				Post p = new Post(id, cat, d, title, text);
 				list.add(p);
@@ -84,6 +85,12 @@ public class PostService {
 	public static void deletePost(int id) {
 		String sql = String.format("UPDATE POST SET post_deleted = 'T' WHERE post_id = '%d'", id);
 		DB.executeUpdate(sql);
+	}
+	
+	public static void edit(Post p) {
+		String sql = String.format("UPDATE POST SET post_title = '%s', post_text = '%s' WHERE post_id = '%d'", p.getTitle(), p.getText(), p.getId());
+		DB.executeUpdate(sql);
+		System.err.println("Post edit complete");
 	}
 	
 	

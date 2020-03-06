@@ -4,7 +4,8 @@ package com.bbd.blog;
 import com.bbd.blog.exceptions.AccessRevokedException;
 import com.bbd.blog.exceptions.InvalidUserCredentialsException;
 import com.bbd.blog.exceptions.UsernameException;
-import com.bbd.blog.ui.AuthorDashboard;
+import com.bbd.blog.ui.LoginPane;
+import com.bbd.blog.ui.StageInstance;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -29,8 +30,8 @@ public class App extends Application
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		
-		
-		Scene scene = new Scene(new AuthorDashboard(), 1080,720);
+		StageInstance.setInstance(stage);
+		Scene scene = new Scene(new LoginPane(), 1080,720);
 		stage.setScene(scene);
 		stage.show();
 		

@@ -7,14 +7,15 @@ public class Comment {
 	private String text;
 	private Date datetime;
 	private Post post;
-	
+	private int userId;
 
-	public Comment(int id, String text, Date datetime, Post post) {
+	public Comment(int id, String text, Date datetime, Post post, int userId) {
 		super();
 		this.id = id;
 		this.text = text;
 		this.datetime = datetime;
 		this.post = post;
+		this.userId = userId;
 	}
 	
 	public int getId() {
@@ -40,5 +41,13 @@ public class Comment {
 	}
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 }
