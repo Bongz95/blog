@@ -2,13 +2,10 @@ package com.bbd.blog.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.bbd.blog.exceptions.OperationDeniedException;
-import com.bbd.blog.model.Admin;
 import com.bbd.blog.model.Author;
 import com.bbd.blog.model.Category;
 import com.bbd.blog.model.Post;

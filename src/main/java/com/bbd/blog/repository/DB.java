@@ -8,7 +8,7 @@ public class DB {
 										            + "database=BLOG_ENGINE;"
 										            + "user=2161;"
 										            + "password=3mm@nu3l;";
-	private static Connection conn;
+	private static Connection conn = null;
 	
 	
 	
@@ -49,7 +49,8 @@ public class DB {
 	private static boolean establishConnection() {
 		
 		try {
-			conn = DriverManager.getConnection(connectionString);
+			if(conn==null)
+				conn = DriverManager.getConnection(connectionString);
 			return true;
 		}catch(SQLException e) {
 			System.err.print("ERR: Unable to establish database connection");
@@ -59,7 +60,7 @@ public class DB {
 		return false;
 	}
 	
-	private static boolean closeConnection() {
+	public static boolean closeConnection() {
 		try {
 			if(!conn.isClosed())
 				conn.close();

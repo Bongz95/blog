@@ -4,6 +4,7 @@ package com.bbd.blog;
 import com.bbd.blog.exceptions.AccessRevokedException;
 import com.bbd.blog.exceptions.InvalidUserCredentialsException;
 import com.bbd.blog.exceptions.UsernameException;
+import com.bbd.blog.repository.DB;
 import com.bbd.blog.ui.LoginPane;
 import com.bbd.blog.ui.StageInstance;
 
@@ -32,6 +33,9 @@ public class App extends Application
 		
 		StageInstance.setInstance(stage);
 		Scene scene = new Scene(new LoginPane(), 1080,720);
+		stage.setOnCloseRequest(e->{
+			if(DB.closeConnection()) System.out.println("DB connection closed");
+		});
 		stage.setScene(scene);
 		stage.show();
 		
