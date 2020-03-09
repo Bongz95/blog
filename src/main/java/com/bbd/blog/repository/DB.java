@@ -20,7 +20,6 @@ public class DB {
 				Statement st = conn.createStatement();
 				st.executeUpdate(sql);
 				st.close();
-				conn.close();
 			} catch (SQLException e) {
 				System.err.println("ERR: Unable to execute query");
 				e.printStackTrace();
@@ -62,7 +61,7 @@ public class DB {
 	
 	public static boolean closeConnection() {
 		try {
-			if(!conn.isClosed())
+			if(conn != null && !conn.isClosed())
 				conn.close();
 			return true;
 		} catch (SQLException e) {
